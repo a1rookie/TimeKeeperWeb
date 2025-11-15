@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    /* 基础配置 */
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ES2022"],
+    "jsx": "react-native",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    
+    /* 严格类型检查 */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    
+    /* 路径别名 */
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@app/*": ["./app/*"],
+      "@features/*": ["./features/*"],
+      "@shared/*": ["./shared/*"],
+      "@entities/*": ["./entities/*"],
+      "@infrastructure/*": ["./infrastructure/*"]
+    },
+    
+    /* 其他配置 */
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "allowJs": false,
+    "noEmit": true
+  },
+  "include": ["src/**/*", "__tests__/**/*", "index.js"],
+  "exclude": ["node_modules", "android", "ios", ".vscode", "**/*.spec.ts", "**/*.test.ts"]
+}

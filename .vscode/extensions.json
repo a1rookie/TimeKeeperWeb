@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-next",
+    "msjsdiag.vscode-react-native",
+    "firsttris.vscode-jest-runner",
+    "orta.vscode-jest",
+    "bradlc.vscode-tailwindcss",
+    "naumovs.color-highlight",
+    "usernamehw.errorlens"
+  ]
+}
