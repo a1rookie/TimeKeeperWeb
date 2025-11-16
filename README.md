@@ -116,12 +116,23 @@ pnpm install
 
 # 或使用 npm
 npm install
-
-# iOS 需要安装 CocoaPods 依赖
-cd ios && pod install && cd ..
 ```
 
-3. **配置环境变量**
+3. **配置原生环境**
+
+```bash
+# iOS 安装 CocoaPods 依赖 (需要 macOS)
+cd ios && pod install && cd ..
+
+# Android 无需额外配置,确保已安装 Android Studio 和 JDK 17
+```
+
+> **📝 注意**: 
+> - **iOS 开发仅支持 macOS 系统**
+> - **Windows 用户请查看** [Windows 环境配置指南](./WINDOWS_SETUP.md)
+> - 原生代码文件夹 (`ios/`, `android/`) 已包含在仓库中
+
+4. **配置环境变量**
 
 ```bash
 # 复制环境变量模板
@@ -131,18 +142,25 @@ cp .env.example .env
 # API_BASE_URL=http://localhost:8000  # 开发环境
 ```
 
-4. **启动开发服务器**
+5. **启动开发服务器**
 
 ```bash
 # 启动 Metro bundler
 pnpm start
 
-# iOS (在另一个终端)
+# iOS (在另一个终端,仅 macOS)
 pnpm ios
 
 # Android (在另一个终端)
 pnpm android
 ```
+
+### 快速问题排查
+
+- ❌ **iOS 运行失败**: 请查看 [运行指南](./RUN_GUIDE.md)
+- ❌ **Android 运行失败 (Windows)**: 请查看 [Windows 配置指南](./WINDOWS_SETUP.md)
+- ❌ **JAVA_HOME 未设置**: 安装 JDK 17 并配置环境变量
+- ❌ **依赖安装失败**: 删除 `node_modules` 和 `pnpm-lock.yaml` 后重新安装
 
 ---
 
