@@ -3,7 +3,14 @@
  */
 
 import React, { useState } from 'react'
-import { Text, ScrollView, ViewStyle, TextStyle, KeyboardAvoidingView, Platform } from 'react-native'
+import {
+  Text,
+  ScrollView,
+  ViewStyle,
+  TextStyle,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native'
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native'
 import { useTheme } from '@shared/theme'
 import { Button, Input, Card } from '@shared/components'

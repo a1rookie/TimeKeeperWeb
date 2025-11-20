@@ -34,14 +34,7 @@ export const CompletionRecordsScreen: React.FC = () => {
 
   // 空状态
   if (!completions || completions.length === 0) {
-    return (
-      <EmptyState
-        title="暂无完成记录"
-        description="还没有完成记录哦"
-        emoji="📝"
-        fullScreen
-      />
-    )
+    return <EmptyState title="暂无完成记录" description="还没有完成记录哦" emoji="📝" fullScreen />
   }
 
   return (
@@ -52,20 +45,14 @@ export const CompletionRecordsScreen: React.FC = () => {
         renderItem={({ item }) => (
           <Card style={styles.recordCard}>
             <View style={styles.recordHeader}>
-              <Text style={styles.recordDate(theme)}>
-                {formatDateTime(item.completedAt)}
-              </Text>
+              <Text style={styles.recordDate(theme)}>{formatDateTime(item.completedAt)}</Text>
               <Text style={styles.recordStatus(theme)}>已完成</Text>
             </View>
 
-            {item.notes && (
-              <Text style={styles.recordNotes(theme)}>{item.notes}</Text>
-            )}
+            {item.notes && <Text style={styles.recordNotes(theme)}>{item.notes}</Text>}
 
             {item.amount && (
-              <Text style={styles.recordAmount(theme)}>
-                金额: ¥{item.amount.toFixed(2)}
-              </Text>
+              <Text style={styles.recordAmount(theme)}>金额: ¥{item.amount.toFixed(2)}</Text>
             )}
           </Card>
         )}
@@ -75,9 +62,7 @@ export const CompletionRecordsScreen: React.FC = () => {
 
       {/* 统计信息 */}
       <View style={styles.statsBar(theme)}>
-        <Text style={styles.statsText(theme)}>
-          总共完成 {completions.length} 次
-        </Text>
+        <Text style={styles.statsText(theme)}>总共完成 {completions.length} 次</Text>
       </View>
     </View>
   )

@@ -20,7 +20,12 @@ export interface ReminderCardProps {
   style?: ViewStyle
 }
 
-export const ReminderCard: React.FC<ReminderCardProps> = ({ reminder, onPress, onComplete, style }) => {
+export const ReminderCard: React.FC<ReminderCardProps> = ({
+  reminder,
+  onPress,
+  onComplete,
+  style,
+}) => {
   const theme = useTheme()
 
   const daysUntil = getDaysUntil(reminder.nextRemindTime)
@@ -81,7 +86,9 @@ export const ReminderCard: React.FC<ReminderCardProps> = ({ reminder, onPress, o
       <View style={styles.statusContainer}>
         {getStatusText() && (
           <View style={[styles.statusBadge(theme), { backgroundColor: `${getStatusColor()}20` }]}>
-            <Text style={[styles.statusText(theme), { color: getStatusColor() }]}>{getStatusText()}</Text>
+            <Text style={[styles.statusText(theme), { color: getStatusColor() }]}>
+              {getStatusText()}
+            </Text>
           </View>
         )}
 

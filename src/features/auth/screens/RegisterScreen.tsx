@@ -47,7 +47,9 @@ export const RegisterScreen: React.FC = () => {
     // 验证表单
     const phoneValidation = validateField(phoneSchema, phone)
     const codeValidation = validateField(smsCodeSchema, smsCode)
-    const nicknameValidation = nickname ? validateField(nicknameSchema, nickname) : { success: true }
+    const nicknameValidation = nickname
+      ? validateField(nicknameSchema, nickname)
+      : { success: true }
 
     if (!phoneValidation.success) {
       setPhoneError(phoneValidation.error || '')
@@ -153,8 +155,7 @@ export const RegisterScreen: React.FC = () => {
 
           {/* 服务条款提示 */}
           <Text style={styles.termsHint(theme)}>
-            注册即表示同意{' '}
-            <Text style={styles.termsLink(theme)}>《用户协议》</Text>和
+            注册即表示同意 <Text style={styles.termsLink(theme)}>《用户协议》</Text>和
             <Text style={styles.termsLink(theme)}>《隐私政策》</Text>
           </Text>
         </View>

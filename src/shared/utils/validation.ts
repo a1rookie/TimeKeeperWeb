@@ -8,32 +8,22 @@ import { z } from 'zod'
 /**
  * 手机号验证规则
  */
-export const phoneSchema = z
-  .string()
-  .regex(/^1[3-9]\d{9}$/, '请输入正确的手机号')
+export const phoneSchema = z.string().regex(/^1[3-9]\d{9}$/, '请输入正确的手机号')
 
 /**
  * 短信验证码验证规则
  */
-export const smsCodeSchema = z
-  .string()
-  .regex(/^\d{6}$/, '请输入6位验证码')
+export const smsCodeSchema = z.string().regex(/^\d{6}$/, '请输入6位验证码')
 
 /**
  * 密码验证规则
  */
-export const passwordSchema = z
-  .string()
-  .min(6, '密码至少6位')
-  .max(20, '密码最多20位')
+export const passwordSchema = z.string().min(6, '密码至少6位').max(20, '密码最多20位')
 
 /**
  * 昵称验证规则
  */
-export const nicknameSchema = z
-  .string()
-  .min(2, '昵称至少2个字符')
-  .max(20, '昵称最多20个字符')
+export const nicknameSchema = z.string().min(2, '昵称至少2个字符').max(20, '昵称最多20个字符')
 
 /**
  * 提醒标题验证规则
@@ -46,10 +36,7 @@ export const reminderTitleSchema = z
 /**
  * 提醒描述验证规则
  */
-export const reminderDescriptionSchema = z
-  .string()
-  .max(500, '提醒描述最多500个字符')
-  .optional()
+export const reminderDescriptionSchema = z.string().max(500, '提醒描述最多500个字符').optional()
 
 /**
  * 登录表单验证
@@ -90,7 +77,10 @@ export const createReminderSchema = z.object({
 /**
  * 验证辅助函数
  */
-export const validateField = <T>(schema: z.ZodSchema<T>, value: unknown): { success: boolean; error?: string } => {
+export const validateField = <T>(
+  schema: z.ZodSchema<T>,
+  value: unknown
+): { success: boolean; error?: string } => {
   try {
     schema.parse(value)
     return { success: true }

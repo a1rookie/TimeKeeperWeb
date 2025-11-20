@@ -12,10 +12,7 @@ import { useUpdateUser } from '../../auth/hooks/use-auth'
 import { validateField } from '@shared/utils/validation'
 import { z } from 'zod'
 
-const nicknameSchema = z
-  .string()
-  .min(1, '昵称不能为空')
-  .max(20, '昵称不能超过20个字符')
+const nicknameSchema = z.string().min(1, '昵称不能为空').max(20, '昵称不能超过20个字符')
 
 export const EditProfileScreen: React.FC = () => {
   const theme = useTheme()

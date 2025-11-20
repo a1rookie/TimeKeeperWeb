@@ -43,15 +43,16 @@ TimeKeeper Mobile 是一款帮助用户管理生活中重要周期性事件的�
 
 ```json
 {
-  "基础框架": "React Native 0.76.3",
+  "基础框架": "React Native 0.78.3",
   "开发语言": "TypeScript 5.6+",
-  "包管理器": "pnpm 8.15+",
+  "包管理器": "npm (推荐) / pnpm 8.15+",
+  "React版本": "React 19.2.0",
   "状态管理": "Zustand 5.0 (客户端) + TanStack Query 5.59 (服务端)",
   "UI框架": "Tamagui 1.112 (性能最佳)",
   "导航路由": "React Navigation 6.1+",
   "网络请求": "Native Fetch API",
   "本地存储": "react-native-mmkv 3.1 (性能提升30倍)",
-  "动画引擎": "React Native Reanimated 3.16",
+  "动画引擎": "React Native Reanimated 3.19.4",
   "表单处理": "React Hook Form 7.49 + Zod 3.23",
   "测试框架": "Jest 29.7 + Testing Library 12.7"
 }
@@ -93,74 +94,148 @@ src/
 
 ### 前置要求
 
-- Node.js 18+ 
-- pnpm 8.15+
-- React Native 开发环境 ([官方文档](https://reactnative.dev/docs/environment-setup))
-  - iOS: Xcode 14+, CocoaPods
-  - Android: Android Studio, JDK 17+
+- **Node.js 18+** 
+- **npm** (推荐) 或 pnpm 8.15+
+- **React Native 开发环境** ([官方文档](https://reactnative.dev/docs/environment-setup))
+  - **iOS**: Xcode 14+, CocoaPods (仅 macOS)
+  - **Android**: Android Studio, JDK 17+
+
+> **💡 重要提示**: 
+> - Windows 用户请务必先查看 [Windows 环境配置指南](./docs/WINDOWS_SETUP.md)
+> - 推荐使用 **npm** 而非 pnpm (避免符号链接问题)
 
 ### 安装步骤
 
-1. **克隆项目**
+#### 1. 克隆项目
 
 ```bash
 git clone <repository-url>
 cd TimeKeeperWeb
 ```
 
-2. **安装依赖**
+#### 2. 安装依赖
 
 ```bash
-# 使用 pnpm (推荐)
-pnpm install
-
-# 或使用 npm
+# 推荐使用 npm (避免 Windows 符号链接问题)
 npm install
+
+# 或使用 pnpm
+pnpm install
 ```
 
-3. **配置原生环境**
+#### 3. 配置 Android 环境 (Windows 用户必读)
+
+**方式一：自动配置 (推荐)**
+
+在 `android` 目录创建 `local.properties` 文件：
+
+```properties
+# android/local.properties
+sdk.dir=D:\\Android\\SDK
+```
+
+**方式二：环境变量配置**
+
+确保设置以下环境变量：
+- `ANDROID_HOME=D:\Android\SDK`
+- `JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-17.x.x.x-hotspot`
+
+详细配置请查看 [Windows 配置指南](./docs/WINDOWS_SETUP.md)
+
+#### 4. iOS 配置 (仅 macOS)
 
 ```bash
-# iOS 安装 CocoaPods 依赖 (需要 macOS)
 cd ios && pod install && cd ..
-
-# Android 无需额外配置,确保已安装 Android Studio 和 JDK 17
 ```
 
-> **📝 注意**: 
-> - **iOS 开发仅支持 macOS 系统**
-> - **Windows 用户请查看** [Windows 环境配置指南](./WINDOWS_SETUP.md)
-> - 原生代码文件夹 (`ios/`, `android/`) 已包含在仓库中
+#### 5. 启动应用
 
-4. **配置环境变量**
+**Android 开发 (推荐流程)**
 
 ```bash
-# 复制环境变量模板
-cp .env.example .env
+# 第一步：启动 Metro Bundler (终端 1)
+npm start
 
-# 编辑 .env 文件，配置后端 API 地址
-# API_BASE_URL=http://localhost:8000  # 开发环境
+# 第二步：启动 Android 模拟器
+# 打开 Android Studio -> Device Manager -> 启动模拟器
+
+# 第三步：运行应用 (终端 2)
+npm run android
 ```
 
-5. **启动开发服务器**
+**首次构建说明:**
+- Android 首次构建需要 10-15 分钟（下载依赖和编译 C++）
+- 构建完成后会自动安装到模拟器并启动
+- 后续热更新只需 2-3 秒
+
+**iOS 开发 (仅 macOS)**
 
 ```bash
-# 启动 Metro bundler
-pnpm start
+# 启动 Metro
+npm start
 
-# iOS (在另一个终端,仅 macOS)
-pnpm ios
+# 运行 iOS (另一个终端)
+npm run ios
+```
 
-# Android (在另一个终端)
-pnpm android
+### 开发调试技巧
+
+**重新加载应用:**
+```bash
+# 方式 1: 在模拟器中按 R 键 (Android) 或 Cmd+R (iOS)
+# 方式 2: 在 Metro 终端按 r 键
+# 方式 3: 摇晃设备，打开开发菜单，点击 Reload
+```
+
+**清理缓存:**
+```bash
+# 清理 Metro 缓存
+npm start -- --reset-cache
+
+# 清理 Gradle 缓存 (Android)
+cd android && .\gradlew clean && cd ..
+
+# 清理 iOS 缓存
+cd ios && xcodebuild clean && cd ..
+```
+
+**完全重置:**
+```bash
+# 删除所有缓存和依赖
+rm -rf node_modules android/.gradle ios/Pods
+npm install
+cd ios && pod install && cd ..
 ```
 
 ### 快速问题排查
 
-- ❌ **iOS 运行失败**: 请查看 [运行指南](./RUN_GUIDE.md)
-- ❌ **Android 运行失败 (Windows)**: 请查看 [Windows 配置指南](./WINDOWS_SETUP.md)
-- ❌ **JAVA_HOME 未设置**: 安装 JDK 17 并配置环境变量
-- ❌ **依赖安装失败**: 删除 `node_modules` 和 `pnpm-lock.yaml` 后重新安装
+- ❌ **Metro 连接失败**: 
+  - 检查是否有多个 Metro 进程：`taskkill /F /IM node.exe`
+  - 重启 Metro: `npm start -- --reset-cache`
+  
+- ❌ **Android 构建失败**: 
+  - 检查 `JAVA_HOME` 和 `ANDROID_HOME` 环境变量
+  - 删除 `android/.gradle` 文件夹后重试
+  - 查看 [Windows 配置指南](./docs/WINDOWS_SETUP.md)
+
+- ❌ **应用显示空白**: 
+  - 确保 Metro Bundler 正在运行
+  - 在模拟器中按 R 键重新加载
+  - 检查 Metro 终端是否有错误信息
+
+- ❌ **端口 8081 被占用**: 
+  ```bash
+  # Windows
+  netstat -ano | findstr :8081
+  taskkill /PID <进程ID> /F
+  
+  # macOS/Linux
+  lsof -ti:8081 | xargs kill
+  ```
+
+- ❌ **符号链接错误 (pnpm)**: 
+  - 改用 npm: `npm install`
+  - 或创建 `.npmrc`: `node-linker=hoisted`
 
 ---
 
@@ -233,22 +308,40 @@ pnpm test:watch
 ### Android 构建
 
 ```bash
-# Debug 构建
-cd android && ./gradlew assembleDebug
+# Debug 构建 (开发测试)
+cd android
+gradlew assembleDebug
+cd ..
 
-# Release 构建 (需要配置签名)
-cd android && ./gradlew assembleRelease
+# 输出位置: android/app/build/outputs/apk/debug/app-debug.apk
+
+# Release 构建 (生产发布 - 需要配置签名)
+cd android
+gradlew assembleRelease
+cd ..
 ```
 
-### iOS 构建
+**Windows 用户:**
+```powershell
+cd android
+.\gradlew.bat assembleDebug
+cd ..
+```
+
+**首次构建时间**: 10-15 分钟 (下载依赖 + C++ 编译)  
+**后续构建**: 2-5 分钟
+
+### iOS 构建 (仅 macOS)
 
 ```bash
 # 使用 Xcode
 cd ios
-xcodebuild -workspace TimeKeeper.xcworkspace \
-           -scheme TimeKeeper \
+xcodebuild -workspace TimeKeeperTemp.xcworkspace \
+           -scheme TimeKeeperTemp \
            -configuration Release
 ```
+
+或直接在 Xcode 中打开 `ios/TimeKeeperTemp.xcworkspace` 进行构建
 
 ---
 

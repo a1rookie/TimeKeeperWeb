@@ -105,7 +105,9 @@ export const ReminderDetailScreen: React.FC = () => {
         </View>
         <View style={styles.statusRow}>
           <Text style={styles.statusLabel(theme)}>提醒时间</Text>
-          <Text style={styles.statusValue(theme)}>{formatReminderTime(reminder.nextRemindTime)}</Text>
+          <Text style={styles.statusValue(theme)}>
+            {formatReminderTime(reminder.nextRemindTime)}
+          </Text>
         </View>
         {reminder.recurrenceType && reminder.recurrenceType !== 'none' && (
           <View style={styles.statusRow}>
@@ -146,12 +148,24 @@ export const ReminderDetailScreen: React.FC = () => {
       {/* 操作按钮 */}
       <View style={styles.actions}>
         {!isCompleted && (
-          <Button variant="primary" size="lg" fullWidth onPress={handleComplete} style={styles.actionButton}>
+          <Button
+            variant="primary"
+            size="lg"
+            fullWidth
+            onPress={handleComplete}
+            style={styles.actionButton}
+          >
             标记完成
           </Button>
         )}
 
-        <Button variant="secondary" size="lg" fullWidth onPress={handleEdit} style={styles.actionButton}>
+        <Button
+          variant="secondary"
+          size="lg"
+          fullWidth
+          onPress={handleEdit}
+          style={styles.actionButton}
+        >
           编辑提醒
         </Button>
 

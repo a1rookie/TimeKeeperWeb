@@ -76,7 +76,9 @@ export function useSafeState<T>(initialState: T): [T, (newState: T) => void] {
  * 获取上一次渲染的值
  */
 export function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T>()
+  // React 19 的类型定义要求为 useRef 提供初始值
+  // 我们使用 undefined 来表示尚未有上一次值
+  const ref = useRef<T | undefined>(undefined)
 
   useEffect(() => {
     ref.current = value

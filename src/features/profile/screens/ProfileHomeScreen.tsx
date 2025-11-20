@@ -73,9 +73,7 @@ export const ProfileHomeScreen: React.FC = () => {
       {/* 用户信息卡片 */}
       <Card style={styles.profileCard}>
         <View style={styles.avatar(theme)}>
-          <Text style={styles.avatarText(theme)}>
-            {user?.nickname?.[0]?.toUpperCase() || '?'}
-          </Text>
+          <Text style={styles.avatarText(theme)}>{user?.nickname?.[0]?.toUpperCase() || '?'}</Text>
         </View>
         <Text style={styles.nickname(theme)}>{user?.nickname || '未设置昵称'}</Text>
         <Text style={styles.phone(theme)}>{user?.phone || '未知手机号'}</Text>

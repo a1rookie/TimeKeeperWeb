@@ -17,7 +17,12 @@ export interface LoadingProps {
   style?: ViewStyle
 }
 
-export const Loading: React.FC<LoadingProps> = ({ text, fullScreen = false, size = 'large', style }) => {
+export const Loading: React.FC<LoadingProps> = ({
+  text,
+  fullScreen = false,
+  size = 'large',
+  style,
+}) => {
   const theme = useTheme()
 
   return (

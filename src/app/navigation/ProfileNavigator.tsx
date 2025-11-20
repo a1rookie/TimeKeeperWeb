@@ -23,7 +23,11 @@ export const ProfileNavigator: React.FC = () => {
       }}
     >
       <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} options={{ title: '我的' }} />
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: '编辑资料' }} />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{ title: '编辑资料' }}
+      />
       <Stack.Screen name="Settings" component={SettingsScreen} options={{ title: '设置' }} />
       <Stack.Screen name="About" component={AboutScreen} options={{ title: '关于' }} />
     </Stack.Navigator>

@@ -69,7 +69,10 @@ export const ReminderListScreen: React.FC = () => {
       {CATEGORIES.map((category) => (
         <TouchableOpacity
           key={category}
-          style={[styles.categoryItem(theme), selectedCategory === category && styles.categoryItemActive(theme)]}
+          style={[
+            styles.categoryItem(theme),
+            selectedCategory === category && styles.categoryItemActive(theme),
+          ]}
           onPress={() => setSelectedCategory(category)}
         >
           <CategoryIcon category={category} size="sm" showBackground={false} />
@@ -98,7 +101,9 @@ export const ReminderListScreen: React.FC = () => {
       {/* 工具栏 */}
       <View style={styles.toolbar(theme)}>
         <TouchableOpacity onPress={() => setShowCompleted(!showCompleted)}>
-          <Text style={styles.toolbarText(theme)}>{showCompleted ? '隐藏已完成' : '显示已完成'}</Text>
+          <Text style={styles.toolbarText(theme)}>
+            {showCompleted ? '隐藏已完成' : '显示已完成'}
+          </Text>
         </TouchableOpacity>
 
         <Text style={styles.toolbarText(theme)}>共 {data?.total || 0} 条</Text>

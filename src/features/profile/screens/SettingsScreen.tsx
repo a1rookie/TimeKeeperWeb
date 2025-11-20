@@ -15,7 +15,12 @@ interface SettingItemProps {
   onValueChange?: (value: boolean) => void
 }
 
-const SettingItem: React.FC<SettingItemProps> = ({ title, value, type = 'text', onValueChange }) => {
+const SettingItem: React.FC<SettingItemProps> = ({
+  title,
+  value,
+  type = 'text',
+  onValueChange,
+}) => {
   const theme = useTheme()
 
   return (
