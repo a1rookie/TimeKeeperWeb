@@ -28,9 +28,7 @@ const familyNameSchema = z
   .min(1, '家庭组名称不能为空')
   .max(20, '家庭组名称不能超过20个字符')
 
-const familyDescriptionSchema = z
-  .string()
-  .max(100, '描述不能超过100个字符')
+const familyDescriptionSchema = z.string().max(100, '描述不能超过100个字符')
 
 export const EditFamilyScreen: React.FC = () => {
   const theme = useTheme()

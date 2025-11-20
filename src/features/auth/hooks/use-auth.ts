@@ -6,7 +6,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { userService } from '@infrastructure/services/user.service'
 import { queryKeys } from '@app/providers/query-client'
 import { useAuthStore } from '@app/providers/auth.store'
-import type { LoginRequest, RegisterRequest, SendSmsCodeRequest, AuthResponse, User } from '@entities/user'
+import type {
+  LoginRequest,
+  RegisterRequest,
+  SendSmsCodeRequest,
+  AuthResponse,
+  User,
+} from '@entities/user'
 
 /**
  * 获取当前用户信息

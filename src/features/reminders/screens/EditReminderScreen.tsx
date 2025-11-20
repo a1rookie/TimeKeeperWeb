@@ -10,7 +10,11 @@ import { useTheme } from '@shared/theme'
 import { Button, Input, Loading, Error } from '@shared/components'
 import { getCategoryName } from '@shared/components/CategoryIcon'
 import { useReminder, useUpdateReminder } from '../hooks/use-reminders'
-import { validateField, reminderTitleSchema, reminderDescriptionSchema } from '@shared/utils/validation'
+import {
+  validateField,
+  reminderTitleSchema,
+  reminderDescriptionSchema,
+} from '@shared/utils/validation'
 import type { RemindersStackParamList } from '@app/navigation/types'
 import type { ReminderCategory } from '@entities/reminder'
 

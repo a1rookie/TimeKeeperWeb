@@ -3,14 +3,7 @@
  */
 
 import React from 'react'
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  ViewStyle,
-  TextStyle,
-} from 'react-native'
+import { View, Text, FlatList, ActivityIndicator, ViewStyle, TextStyle } from 'react-native'
 import { useTheme } from '@shared/theme'
 import { Card, Button } from '@shared/components'
 import { usePendingInvitations, useRespondInvitation } from '../hooks/use-family'
@@ -102,7 +95,7 @@ export const InvitationsScreen: React.FC = () => {
       <FlatList
         data={invitations}
         renderItem={renderInvitation}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
         ListEmptyComponent={renderEmpty}
       />

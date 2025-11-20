@@ -7,7 +7,6 @@ import {
   TextInput,
   View,
   Text,
-
   TextInputProps,
   ViewStyle,
   TextStyle,

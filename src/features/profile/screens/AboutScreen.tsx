@@ -26,9 +26,7 @@ export const AboutScreen: React.FC = () => {
         </View>
         <Text style={styles.appName(theme)}>TimeKeeper</Text>
         <Text style={styles.appVersion(theme)}>版本 {APP_VERSION}</Text>
-        <Text style={styles.appDescription(theme)}>
-          智能周期提醒应用，让您不再忘记重要的事情
-        </Text>
+        <Text style={styles.appDescription(theme)}>智能周期提醒应用，让您不再忘记重要的事情</Text>
       </Card>
 
       {/* 链接 */}
@@ -60,9 +58,7 @@ export const AboutScreen: React.FC = () => {
       </Card>
 
       {/* 版权信息 */}
-      <Text style={styles.copyright(theme)}>
-        © 2024 TimeKeeper. All rights reserved.
-      </Text>
+      <Text style={styles.copyright(theme)}>© 2024 TimeKeeper. All rights reserved.</Text>
     </ScrollView>
   )
 }

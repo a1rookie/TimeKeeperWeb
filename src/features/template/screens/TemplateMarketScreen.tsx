@@ -3,14 +3,7 @@
  */
 
 import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  FlatList,
-  ViewStyle,
-  TextStyle,
-  TouchableOpacity,
-} from 'react-native'
+import { View, Text, FlatList, ViewStyle, TextStyle, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useTheme } from '@shared/theme'
@@ -79,11 +72,7 @@ export const TemplateMarketScreen: React.FC = () => {
   if (!templates || templates.length === 0) {
     return (
       <View style={styles.container(theme)}>
-        <EmptyState
-          title="暂无模板"
-          description="还没有公开的模板"
-          emoji="📝"
-        />
+        <EmptyState title="暂无模板" description="还没有公开的模板" emoji="📝" />
       </View>
     )
   }
@@ -114,7 +103,7 @@ export const TemplateMarketScreen: React.FC = () => {
       <FlatList
         data={templates}
         renderItem={renderTemplate}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
       />

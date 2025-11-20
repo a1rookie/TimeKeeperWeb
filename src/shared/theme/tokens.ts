@@ -20,7 +20,7 @@ export const colors = {
     800: '#1565C0',
     900: '#0D47A1',
   },
-  
+
   // 辅助色
   secondary: {
     50: '#F3E5F5',
@@ -34,7 +34,7 @@ export const colors = {
     800: '#6A1B9A',
     900: '#4A148C',
   },
-  
+
   // 语义色
   success: {
     light: '#81C784',
@@ -56,7 +56,7 @@ export const colors = {
     main: '#2196F3',
     dark: '#1976D2',
   },
-  
+
   // 中性色
   grey: {
     50: '#FAFAFA',
@@ -70,7 +70,7 @@ export const colors = {
     800: '#424242',
     900: '#212121',
   },
-  
+
   // 背景色
   background: {
     light: {
@@ -84,7 +84,7 @@ export const colors = {
       tertiary: '#2C2C2C',
     },
   },
-  
+
   // 文本色
   text: {
     light: {
@@ -100,7 +100,7 @@ export const colors = {
       disabled: 'rgba(255, 255, 255, 0.26)',
     },
   },
-  
+
   // 提醒分类色
   category: {
     rent: '#FF6B6B',

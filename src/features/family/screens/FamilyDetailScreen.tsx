@@ -8,7 +8,12 @@ import { useRoute, useNavigation, RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useTheme } from '@shared/theme'
 import { Loading, Error, Card, Button } from '@shared/components'
-import { useFamilyGroup, useFamilyMembers, useDeleteFamilyGroup, useLeaveFamilyGroup } from '../hooks/use-family'
+import {
+  useFamilyGroup,
+  useFamilyMembers,
+  useDeleteFamilyGroup,
+  useLeaveFamilyGroup,
+} from '../hooks/use-family'
 import { formatDateTime } from '@shared/utils/date'
 import type { FamilyStackParamList } from '@app/navigation/types'
 import type { FamilyMember } from '@entities/family'
@@ -80,9 +85,7 @@ export const FamilyDetailScreen: React.FC = () => {
         {familyGroup.description && (
           <Text style={styles.groupDescription(theme)}>{familyGroup.description}</Text>
         )}
-        <Text style={styles.timestamp(theme)}>
-          创建于 {formatDateTime(familyGroup.createdAt)}
-        </Text>
+        <Text style={styles.timestamp(theme)}>创建于 {formatDateTime(familyGroup.createdAt)}</Text>
       </Card>
 
       {/* 成员列表 */}
@@ -101,7 +104,11 @@ export const FamilyDetailScreen: React.FC = () => {
                 <View>
                   <Text style={styles.memberName(theme)}>{member.nickname || '未知'}</Text>
                   <Text style={styles.memberRole(theme)}>
-                    {member.role === 'admin' ? '管理员' : member.role === 'member' ? '成员' : '访客'}
+                    {member.role === 'admin'
+                      ? '管理员'
+                      : member.role === 'member'
+                        ? '成员'
+                        : '访客'}
                   </Text>
                 </View>
                 <Text style={styles.memberJoinTime(theme)}>

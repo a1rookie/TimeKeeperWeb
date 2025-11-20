@@ -20,7 +20,9 @@ import {
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 export const RootNavigator: React.FC = () => {
-  const isAuthenticated = useAuthStore((state: { isAuthenticated: boolean }) => state.isAuthenticated)
+  const isAuthenticated = useAuthStore(
+    (state: { isAuthenticated: boolean }) => state.isAuthenticated
+  )
 
   return (
     <NavigationContainer linking={LinkingConfiguration}>

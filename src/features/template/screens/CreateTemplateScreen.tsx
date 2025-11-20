@@ -3,12 +3,7 @@
  */
 
 import React, { useState } from 'react'
-import {
-  ScrollView,
-  ViewStyle,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native'
+import { ScrollView, ViewStyle, KeyboardAvoidingView, Platform } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '@shared/theme'
 import { Button, Input } from '@shared/components'
@@ -16,14 +11,9 @@ import { useCreateTemplate } from '../hooks/use-templates'
 import { validateField } from '@shared/utils/validation'
 import { z } from 'zod'
 
-const templateNameSchema = z
-  .string()
-  .min(1, '模板名称不能为空')
-  .max(30, '模板名称不能超过30个字符')
+const templateNameSchema = z.string().min(1, '模板名称不能为空').max(30, '模板名称不能超过30个字符')
 
-const templateDescriptionSchema = z
-  .string()
-  .max(200, '描述不能超过200个字符')
+const templateDescriptionSchema = z.string().max(200, '描述不能超过200个字符')
 
 export const CreateTemplateScreen: React.FC = () => {
   const theme = useTheme()

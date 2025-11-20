@@ -3,15 +3,7 @@
  */
 
 import React from 'react'
-import {
-  View,
-  Text,
-  FlatList,
-  ViewStyle,
-  TextStyle,
-  TouchableOpacity,
-  Alert,
-} from 'react-native'
+import { View, Text, FlatList, ViewStyle, TextStyle, TouchableOpacity, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useTheme } from '@shared/theme'
@@ -126,7 +118,7 @@ export const MyTemplatesScreen: React.FC = () => {
       <FlatList
         data={templates}
         renderItem={renderTemplate}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
       />
