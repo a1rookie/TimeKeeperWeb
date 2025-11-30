@@ -46,15 +46,15 @@ TimeKeeper Mobile 是一款帮助用户管理生活中重要周期性事件的�
   "基础框架": "React Native 0.78.3",
   "开发语言": "TypeScript 5.6+",
   "包管理器": "npm (推荐) / pnpm 8.15+",
-  "React版本": "React 19.2.0",
-  "状态管理": "Zustand 5.0 (客户端) + TanStack Query 5.59 (服务端)",
-  "UI框架": "Tamagui 1.112 (性能最佳)",
-  "导航路由": "React Navigation 6.1+",
+  "React版本": "React 19.0.0",
+  "状态管理": "Zustand 5.0.9 (客户端) + TanStack Query 5.90.11 (服务端)",
+  "UI框架": "Tamagui 1.138.6 (性能最佳)",
+  "导航路由": "React Navigation 6.1.18",
   "网络请求": "Native Fetch API",
-  "本地存储": "react-native-mmkv 3.1 (性能提升30倍)",
+  "本地存储": "react-native-mmkv 3.3.3 (性能提升30倍)",
   "动画引擎": "React Native Reanimated 3.19.4",
-  "表单处理": "React Hook Form 7.49 + Zod 3.23",
-  "测试框架": "Jest 29.7 + Testing Library 12.7"
+  "表单处理": "React Hook Form 7.49 + Zod 3.25.76",
+  "测试框架": "Jest 29.7 + Testing Library 12.9.0"
 }
 ```
 
@@ -139,6 +139,36 @@ sdk.dir=D:\\Android\\SDK
 确保设置以下环境变量：
 - `ANDROID_HOME=D:\Android\SDK`
 - `JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-17.x.x.x-hotspot`
+
+**⚠️ Gradle 离线配置 (网络问题解决方案)**
+
+如果 Gradle 下载超时，可以使用本地 Gradle 文件：
+
+1. 下载 [gradle-8.10.2-all.zip](https://services.gradle.org/distributions/gradle-8.10.2-all.zip) 到本地（如 `D:\Downloads\`）
+
+2. 修改 `android/gradle/wrapper/gradle-wrapper.properties`：
+
+```properties
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+distributionUrl=file\:///D:/Downloads/gradle-8.10.2-all.zip
+networkTimeout=60000
+validateDistributionUrl=false
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+```
+
+3. 如遇到 Windows 文件锁定问题，在 `android/gradle.properties` 添加：
+
+```properties
+# 禁用 Gradle Daemon 和并行构建（解决 Windows 文件锁定问题）
+org.gradle.daemon=false
+org.gradle.parallel=false
+org.gradle.workers.max=1
+org.gradle.configuration-cache=false
+org.gradle.vfs.watch=false
+org.gradle.unsafe.isolated-projects=false
+```
 
 详细配置请查看 [Windows 配置指南](./docs/WINDOWS_SETUP.md)
 
