@@ -9,9 +9,11 @@ import { Button, Input } from '@shared/components'
 import { useLogin, useSendSmsCode } from '../hooks/use-auth'
 import { useCountdown } from '@shared/utils/hooks'
 import { validateField, phoneSchema, smsCodeSchema } from '@shared/utils/validation'
+import { useNavigation } from '@react-navigation/native'
 
 export const LoginScreen: React.FC = () => {
   const theme = useTheme()
+  const navigation = useNavigation()
   const [phone, setPhone] = useState('')
   const [smsCode, setSmsCode] = useState('')
   const [phoneError, setPhoneError] = useState('')
@@ -130,7 +132,13 @@ export const LoginScreen: React.FC = () => {
 
           {/* 注册提示 */}
           <Text style={styles.registerHint(theme)}>
-            还没有账号? <Text style={styles.registerLink(theme)}>立即注册</Text>
+            还没有账号?{' '}
+            <Text
+              style={styles.registerLink(theme)}
+              onPress={() => navigation.navigate('Register' as never)}
+            >
+              立即注册
+            </Text>
           </Text>
         </View>
       </ScrollView>

@@ -3,7 +3,7 @@
  */
 
 import React, { useState } from 'react'
-import { View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import { View, Text, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native'
 import { useTheme } from '@shared/theme'
 import { Button, Input } from '@shared/components'
 import { useRegister, useSendSmsCode } from '../hooks/use-auth'
@@ -33,12 +33,13 @@ export const RegisterScreen: React.FC = () => {
       return
     }
     setPhoneError('')
-
     try {
+      Alert.alert('1', phone)
       await sendSmsMutation.mutateAsync({ phone })
       startCountdown()
     } catch (error) {
       // 错误已在 mutation 中处理
+      Alert.alert('错误', String(error))
     }
   }
 
@@ -213,6 +214,7 @@ const styles = {
   },
 
   smsButton: {
+    minHeight: 36,
     marginTop: 24,
     minWidth: 120,
   },
