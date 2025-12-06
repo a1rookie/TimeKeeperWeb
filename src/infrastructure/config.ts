@@ -12,9 +12,26 @@ interface EnvironmentConfig {
   jpushAppKey?: string
 }
 
+const getDevApiBaseUrl = (): string => {
+  // 在 Android 模拟器中访问宿主机请使用 10.0.2.2
+  // 在其他环境（iOS 模拟器 / 真实设备 / 浏览器）保留 localhost
+  let base = 'http://localhost:8000'
+  try {
+    // 使用 require 避免在非 RN 环境导入失败
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { Platform } = require('react-native')
+    if (Platform && Platform.OS === 'android') {
+      base = 'http://10.0.2.2:8000'
+    }
+  } catch (e) {
+    // ignore - fallback to localhost
+  }
+  return base
+}
+
 const ENV_CONFIG = {
   development: {
-    apiBaseUrl: 'http://localhost:8000',
+    apiBaseUrl: getDevApiBaseUrl(),
     apiTimeout: 10000,
     environment: 'development' as const,
     enableDevTools: true,
