@@ -9,6 +9,7 @@ import { Button, Input } from '@shared/components'
 import { useRegister, useSendSmsCode } from '../hooks/use-auth'
 import { useCountdown } from '@shared/utils/hooks'
 import { validateField, phoneSchema, smsCodeSchema, nicknameSchema } from '@shared/utils/validation'
+import { useFocusEffect } from '@react-navigation/native'
 
 export const RegisterScreen: React.FC = () => {
   const theme = useTheme()
@@ -22,11 +23,21 @@ export const RegisterScreen: React.FC = () => {
   const [passwordError, setPasswordError] = useState('')
   const [nicknameError, setNicknameError] = useState('')
 
-  const [countdown, startCountdown] = useCountdown(60)
-  const canSendSms = countdown === 0 || countdown === 60
+  const [countdown, startCountdown, resetCountdown] = useCountdown(60)
+  const canSendSms = countdown === 0
 
   const registerMutation = useRegister()
   const sendSmsMutation = useSendSmsCode()
+
+  // 页面聚焦时重置倒计时和表单
+  useFocusEffect(
+    React.useCallback(() => {
+      resetCountdown()
+      setSmsCode('')
+      setPhoneError('')
+      setCodeError('')
+    }, [resetCountdown])
+  )
 
   // 发送短信验证码
   const handleSendSmsCode = async () => {

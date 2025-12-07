@@ -144,7 +144,7 @@ class ApiClient {
     // 添加认证 token
     if (!skipAuth) {
       // 优先使用当前设置的 token（登录流程中）
-      let token = this.currentToken
+      let token: string | undefined = this.currentToken ?? undefined
       // 如果没有，从 storage 获取
       if (!token) {
         token = await storage.getItem(STORAGE_KEYS.AUTH_TOKEN)
