@@ -108,6 +108,49 @@ class ReminderService {
     const response = await apiClient.post<Reminder>('/api/v1/reminders/quick', { text })
     return response.data
   }
+
+  /**
+   * 语音创建提醒
+   */
+  async createVoiceReminder(audioData: FormData) {
+    const response = await apiClient.post<Reminder>('/api/v1/reminders/voice', audioData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    return response.data
+  }
+
+  /**
+   * 获取提醒的通知配置
+   */
+  async getNotificationConfig(reminderId: string) {
+    const response = await apiClient.get<{
+      advance_notify_minutes: number[]
+      smart_scheduling_enabled: boolean
+      notification_sound: string
+    }>(`/api/v1/reminders/${reminderId}/notification-config`)
+    return response.data
+  }
+
+  /**
+   * 更新提醒的通知配置
+   */
+  async updateNotificationConfig(
+    reminderId: string,
+    config: {
+      advance_notify_minutes?: number[]
+      smart_scheduling_enabled?: boolean
+      notification_sound?: string
+    }
+  ) {
+    const response = await apiClient.put<{
+      advance_notify_minutes: number[]
+      smart_scheduling_enabled: boolean
+      notification_sound: string
+    }>(`/api/v1/reminders/${reminderId}/notification-config`, config)
+    return response.data
+  }
 }
 
 export const reminderService = new ReminderService()

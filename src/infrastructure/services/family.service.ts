@@ -20,21 +20,21 @@ export const familyService = {
    * 获取我的家庭组列表
    */
   getMyFamilyGroups: async (): Promise<ApiResponse<FamilyGroup[]>> => {
-    return apiClient.get<FamilyGroup[]>('/api/v1/family-groups/my')
+    return apiClient.get<FamilyGroup[]>('/api/v1/family/groups/my')
   },
 
   /**
    * 获取家庭组详情
    */
   getFamilyGroup: async (id: string): Promise<ApiResponse<FamilyGroup>> => {
-    return apiClient.get<FamilyGroup>(`/api/v1/family-groups/${id}`)
+    return apiClient.get<FamilyGroup>(`/api/v1/family/groups/${id}`)
   },
 
   /**
    * 创建家庭组
    */
   createFamilyGroup: async (data: CreateFamilyGroupRequest): Promise<ApiResponse<FamilyGroup>> => {
-    return apiClient.post<FamilyGroup>('/api/v1/family-groups', data)
+    return apiClient.post<FamilyGroup>('/api/v1/family/groups', data)
   },
 
   /**
@@ -44,21 +44,21 @@ export const familyService = {
     id: string,
     data: UpdateFamilyGroupRequest
   ): Promise<ApiResponse<FamilyGroup>> => {
-    return apiClient.put<FamilyGroup>(`/api/v1/family-groups/${id}`, data)
+    return apiClient.put<FamilyGroup>(`/api/v1/family/groups/${id}`, data)
   },
 
   /**
    * 删除家庭组
    */
   deleteFamilyGroup: async (id: string): Promise<ApiResponse<void>> => {
-    return apiClient.delete<void>(`/api/v1/family-groups/${id}`)
+    return apiClient.delete<void>(`/api/v1/family/groups/${id}`)
   },
 
   /**
    * 获取家庭组成员列表
    */
   getFamilyMembers: async (familyGroupId: string): Promise<ApiResponse<FamilyMember[]>> => {
-    return apiClient.get<FamilyMember[]>(`/api/v1/family-groups/${familyGroupId}/members`)
+    return apiClient.get<FamilyMember[]>(`/api/v1/family/groups/${familyGroupId}/members`)
   },
 
   /**
@@ -86,13 +86,13 @@ export const familyService = {
    * 移除家庭组成员
    */
   removeMember: async (data: RemoveMemberRequest): Promise<ApiResponse<void>> => {
-    return apiClient.post<void>('/api/v1/family-groups/remove-member', data)
+    return apiClient.post<void>('/api/v1/family/groups/remove-member', data)
   },
 
   /**
    * 退出家庭组
    */
   leaveFamilyGroup: async (familyGroupId: string): Promise<ApiResponse<void>> => {
-    return apiClient.post<void>(`/api/v1/family-groups/${familyGroupId}/leave`)
+    return apiClient.post<void>(`/api/v1/family/groups/${familyGroupId}/leave`)
   },
 }
