@@ -36,7 +36,7 @@ export const LoginScreen: React.FC = () => {
     setPhoneError('')
 
     try {
-      await sendSmsMutation.mutateAsync({ phone })
+      await sendSmsMutation.mutateAsync({ phone, purpose: 'login' })
       startCountdown()
     } catch (error) {
       // 错误已在 mutation 中处理
@@ -62,7 +62,7 @@ export const LoginScreen: React.FC = () => {
     setCodeError('')
 
     try {
-      await loginMutation.mutateAsync({ phone, password: smsCode })
+      await loginMutation.mutateAsync({ phone, sms_code: smsCode })
       // 登录成功后会自动跳转到主页(RootNavigator 会响应 isAuthenticated 变化)
     } catch (error) {
       // 错误已在 mutation 中处理

@@ -17,23 +17,24 @@ export type RecurrenceType = 'daily' | 'weekly' | 'monthly' | 'yearly' | 'smart'
 export type ReminderStatus = 'pending' | 'completed' | 'cancelled'
 
 export interface Reminder {
-  readonly id: string
-  userId: string
+  readonly id: number
+  user_id: number
   title: string
   description?: string
   category: ReminderCategory
-  recurrenceType: RecurrenceType
-  recurrenceConfig: RecurrenceConfig
-  nextRemindTime: Date
-  remindAdvanceDays: number
-  remindChannels: string[]
+  recurrence_type: RecurrenceType
+  recurrence_config: RecurrenceConfig
+  next_remind_time: string
+  first_remind_time: string
+  last_remind_time?: string
+  advance_minutes: number
+  remind_channels: string[]
   amount?: number
-  currency?: string
-  isActive: boolean
-  completionRate?: number
-  familyGroupId?: string
-  readonly createdAt: Date
-  readonly updatedAt: Date
+  is_active: boolean
+  is_completed: boolean
+  completed_at?: string
+  readonly created_at: string
+  readonly updated_at: string
 }
 
 export interface RecurrenceConfig {

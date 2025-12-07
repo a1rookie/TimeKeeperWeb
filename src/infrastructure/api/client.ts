@@ -140,6 +140,21 @@ class ApiClient {
       }
     }
 
+    // 添加 X-Device-Type header（用于后端单点登录/互踢机制）
+    if (!headers['X-Device-Type']) {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { Platform } = require('react-native')
+        if (Platform && Platform.OS) {
+          // android -> 'android', ios -> 'ios', 其他 -> 'web'
+          headers['X-Device-Type'] = Platform.OS === 'android' ? 'android' : Platform.OS === 'ios' ? 'ios' : 'web'
+        }
+      } catch (e) {
+        // 非 RN 环境（如测试），默认为 'web'
+        headers['X-Device-Type'] = 'web'
+      }
+    }
+
     return headers
   }
 

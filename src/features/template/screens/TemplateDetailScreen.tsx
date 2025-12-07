@@ -127,7 +127,7 @@ export const TemplateDetailScreen: React.FC = () => {
 
         <View style={styles.configRow}>
           <Text style={styles.configLabel(theme)}>创建时间</Text>
-          <Text style={styles.configValue(theme)}>{formatDateTime(template.createdAt)}</Text>
+          <Text style={styles.configValue(theme)}>{formatDateTime(template.created_at)}</Text>
         </View>
       </Card>
 

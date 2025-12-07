@@ -192,7 +192,7 @@ export const ReminderDetailScreen: React.FC = () => {
       </View>
 
       {/* 创建时间 */}
-      <Text style={styles.timestamp(theme)}>创建于 {formatDateTime(reminder.createdAt)}</Text>
+      <Text style={styles.timestamp(theme)}>创建于 {formatDateTime(reminder.created_at)}</Text>
     </ScrollView>
   )
 }

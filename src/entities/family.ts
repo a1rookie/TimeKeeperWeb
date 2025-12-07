@@ -5,22 +5,26 @@
 export type FamilyRole = 'admin' | 'member' | 'viewer'
 
 export interface FamilyGroup {
-  readonly id: string
+  readonly id: number
   name: string
   description?: string
-  inviteCode: string
-  memberCount?: number
-  readonly createdAt: Date
-  readonly updatedAt: Date
+  creator_id: number
+  is_active: boolean
+  member_count?: number
+  readonly created_at: string
+  readonly updated_at: string
 }
 
 export interface FamilyMember {
-  readonly id: string
-  familyGroupId: string
-  userId: string
+  readonly id: number
+  group_id: number
+  user_id: number
   role: FamilyRole
   nickname?: string
-  readonly joinedAt: Date
+  is_active: boolean
+  readonly joined_at: string
+  user_phone?: string
+  user_nickname?: string
 }
 
 export interface CreateFamilyGroupRequest {
@@ -38,29 +42,32 @@ export interface UpdateFamilyMemberRequest {
 }
 
 export interface FamilyInvitation {
-  readonly id: string
-  familyGroupId: string
-  familyGroupName: string
-  inviterId: string
-  inviterNickname: string
-  inviterName?: string
-  inviteePhone: string
-  status: 'pending' | 'accepted' | 'rejected' | 'expired'
-  readonly createdAt: Date
-  readonly expiresAt: Date
+  readonly id: number
+  family_group_id: number
+  family_group_name: string
+  sender_id: number
+  receiver_id: number
+  notification_type: string
+  title: string
+  content?: string
+  related_reminder_id?: number
+  related_completion_id?: number
+  is_read: boolean
+  read_at?: string
+  readonly created_at: string
 }
 
 export interface InviteMemberRequest {
-  familyGroupId: string
+  familyGroupId: number
   phone: string
 }
 
 export interface RespondInvitationRequest {
-  invitationId: string
+  invitationId: number
   accept: boolean
 }
 
 export interface RemoveMemberRequest {
-  familyGroupId: string
-  userId: string
+  familyGroupId: number
+  userId: number
 }

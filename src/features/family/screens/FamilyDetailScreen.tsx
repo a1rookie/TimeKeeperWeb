@@ -85,7 +85,7 @@ export const FamilyDetailScreen: React.FC = () => {
         {familyGroup.description && (
           <Text style={styles.groupDescription(theme)}>{familyGroup.description}</Text>
         )}
-        <Text style={styles.timestamp(theme)}>创建于 {formatDateTime(familyGroup.createdAt)}</Text>
+        <Text style={styles.timestamp(theme)}>创建于 {formatDateTime(familyGroup.created_at)}</Text>
       </Card>
 
       {/* 成员列表 */}
