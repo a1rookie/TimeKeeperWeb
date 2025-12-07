@@ -14,9 +14,12 @@ export const RegisterScreen: React.FC = () => {
   const theme = useTheme()
   const [phone, setPhone] = useState('')
   const [smsCode, setSmsCode] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [nickname, setNickname] = useState('')
   const [phoneError, setPhoneError] = useState('')
   const [codeError, setCodeError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
   const [nicknameError, setNicknameError] = useState('')
 
   const [countdown, startCountdown] = useCountdown(60)
@@ -34,12 +37,10 @@ export const RegisterScreen: React.FC = () => {
     }
     setPhoneError('')
     try {
-      Alert.alert('1', phone)
       await sendSmsMutation.mutateAsync({ phone })
       startCountdown()
     } catch (error) {
       // 错误已在 mutation 中处理
-      Alert.alert('错误', String(error))
     }
   }
 
@@ -48,6 +49,18 @@ export const RegisterScreen: React.FC = () => {
     // 验证表单
     const phoneValidation = validateField(phoneSchema, phone)
     const codeValidation = validateField(smsCodeSchema, smsCode)
+    let passwordValidation: { success: boolean; error?: string } = { success: false, error: '' }
+    
+    if (!password || !confirmPassword) {
+      passwordValidation = { success: false, error: '密码不能为空' }
+    } else if (password.length < 6) {
+      passwordValidation = { success: false, error: '密码至少6位' }
+    } else if (password !== confirmPassword) {
+      passwordValidation = { success: false, error: '两次密码输入不一致' }
+    } else {
+      passwordValidation = { success: true, error: '' }
+    }
+
     const nicknameValidation = nickname
       ? validateField(nicknameSchema, nickname)
       : { success: true }
@@ -60,6 +73,10 @@ export const RegisterScreen: React.FC = () => {
       setCodeError(codeValidation.error || '')
       return
     }
+    if (!passwordValidation.success) {
+      setPasswordError(passwordValidation.error || '')
+      return
+    }
     if (!nicknameValidation.success) {
       setNicknameError(nicknameValidation.error || '')
       return
@@ -67,13 +84,14 @@ export const RegisterScreen: React.FC = () => {
 
     setPhoneError('')
     setCodeError('')
+    setPasswordError('')
     setNicknameError('')
 
     try {
       await registerMutation.mutateAsync({
         phone,
-        password: smsCode,
-        smsCode,
+        password, // 使用用户设定的密码
+        sms_code: smsCode, // 验证短信码
         ...(nickname ? { nickname } : {}),
       })
       // 注册成功后会自动跳转到主页
@@ -133,6 +151,28 @@ export const RegisterScreen: React.FC = () => {
           </View>
 
           <Input
+            label="密码"
+            placeholder="请输入密码（至少6位）"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            error={passwordError}
+            required
+            containerStyle={styles.input}
+          />
+
+          <Input
+            label="确认密码"
+            placeholder="请再次输入密码"
+            secureTextEntry
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            error={passwordError}
+            required
+            containerStyle={styles.input}
+          />
+
+          <Input
             label="昵称"
             placeholder="请输入昵称(可选)"
             maxLength={20}
@@ -148,7 +188,7 @@ export const RegisterScreen: React.FC = () => {
             fullWidth
             onPress={handleRegister}
             loading={registerMutation.isPending}
-            disabled={!phone || !smsCode}
+            disabled={!phone || !smsCode || !password || !confirmPassword}
             style={styles.registerButton}
           >
             注册
