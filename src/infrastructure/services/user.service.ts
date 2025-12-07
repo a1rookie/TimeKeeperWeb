@@ -28,10 +28,15 @@ class UserService {
    */
   async login(data: LoginRequest) {
     const response = await apiClient.post<Token>('/api/v1/users/login', data)
+    const token = response.data.access_token
+    
+    // 临时保存 token 以便下一步请求可以使用认证头
+    await apiClient.setToken(token)
+    
     // 登录后立即获取用户信息
     const userResponse = await apiClient.get<User>('/api/v1/users/me')
     return {
-      token: response.data.access_token,
+      token,
       user: userResponse.data,
     } as AuthResponse
   }
