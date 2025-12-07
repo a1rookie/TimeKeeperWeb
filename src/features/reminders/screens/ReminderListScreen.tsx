@@ -37,12 +37,12 @@ export const ReminderListScreen: React.FC = () => {
   const completeMutation = useCompleteReminder()
 
   // 导航到详情
-  const handleReminderPress = (id: string) => {
+  const handleReminderPress = (id: number) => {
     navigation.navigate('ReminderDetail', { id })
   }
 
   // 完成提醒
-  const handleCompleteReminder = async (id: string) => {
+  const handleCompleteReminder = async (id: number) => {
     try {
       await completeMutation.mutateAsync({ id })
     } catch (error) {
@@ -122,7 +122,7 @@ export const ReminderListScreen: React.FC = () => {
       ) : (
         <FlatList
           data={reminders}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             <ReminderCard
               reminder={item}

@@ -3,6 +3,7 @@
  */
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { Alert } from 'react-native'
 import { reminderService } from '@infrastructure/services/reminder.service'
 import { queryKeys } from '@app/providers/query-client'
 import type { CreateReminderRequest, UpdateReminderRequest } from '@entities/reminder'
@@ -20,7 +21,7 @@ export const useReminders = (filters?: Record<string, unknown>) => {
 /**
  * 获取提醒详情
  */
-export const useReminder = (id: string) => {
+export const useReminder = (id: number) => {
   return useQuery({
     queryKey: queryKeys.reminders.detail(id),
     queryFn: () => reminderService.getReminderById(id),
@@ -38,6 +39,11 @@ export const useCreateReminder = () => {
     mutationFn: (data: CreateReminderRequest) => reminderService.createReminder(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.reminders.all })
+      Alert.alert('成功', '提醒创建成功')
+    },
+    onError: (error: any) => {
+      const message = error?.message || error?.response?.data?.message || '创建提醒失败，请重试'
+      Alert.alert('创建失败', message)
     },
   })
 }
@@ -49,11 +55,16 @@ export const useUpdateReminder = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateReminderRequest }) =>
+    mutationFn: ({ id, data }: { id: number; data: UpdateReminderRequest }) =>
       reminderService.updateReminder(id, data),
-    onSuccess: (_: unknown, variables: { id: string; data: UpdateReminderRequest }) => {
+    onSuccess: (_: unknown, variables: { id: number; data: UpdateReminderRequest }) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.reminders.all })
       queryClient.invalidateQueries({ queryKey: queryKeys.reminders.detail(variables.id) })
+      Alert.alert('成功', '提醒更新成功')
+    },
+    onError: (error: any) => {
+      const message = error?.message || error?.response?.data?.message || '更新提醒失败，请重试'
+      Alert.alert('更新失败', message)
     },
   })
 }
@@ -65,9 +76,14 @@ export const useDeleteReminder = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: string) => reminderService.deleteReminder(id),
+    mutationFn: (id: number) => reminderService.deleteReminder(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.reminders.all })
+      Alert.alert('成功', '提醒已删除')
+    },
+    onError: (error: any) => {
+      const message = error?.message || error?.response?.data?.message || '删除提醒失败，请重试'
+      Alert.alert('删除失败', message)
     },
   })
 }
@@ -79,13 +95,18 @@ export const useCompleteReminder = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, notes, amount }: { id: string; notes?: string; amount?: number }) =>
+    mutationFn: ({ id, notes, amount }: { id: number; notes?: string; amount?: number }) =>
       reminderService.completeReminder(id, notes, amount),
-    onSuccess: (_: unknown, variables: { id: string; notes?: string; amount?: number }) => {
+    onSuccess: (_: unknown, variables: { id: number; notes?: string; amount?: number }) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.reminders.all })
       queryClient.invalidateQueries({ queryKey: queryKeys.reminders.detail(variables.id) })
       queryClient.invalidateQueries({ queryKey: queryKeys.reminders.completions(variables.id) })
       queryClient.invalidateQueries({ queryKey: queryKeys.reminders.statistics })
+      Alert.alert('成功', '提醒已完成')
+    },
+    onError: (error: any) => {
+      const message = error?.message || error?.response?.data?.message || '完成提醒失败，请重试'
+      Alert.alert('完成失败', message)
     },
   })
 }
@@ -93,7 +114,7 @@ export const useCompleteReminder = () => {
 /**
  * 获取提醒完成记录
  */
-export const useReminderCompletions = (reminderId: string) => {
+export const useReminderCompletions = (reminderId: number) => {
   return useQuery({
     queryKey: queryKeys.reminders.completions(reminderId),
     queryFn: () => reminderService.getReminderCompletions(reminderId),

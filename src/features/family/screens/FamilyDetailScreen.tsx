@@ -112,7 +112,7 @@ export const FamilyDetailScreen: React.FC = () => {
                   </Text>
                 </View>
                 <Text style={styles.memberJoinTime(theme)}>
-                  {formatDateTime(member.joinedAt, 'yyyy-MM-dd')}
+                  {formatDateTime(member.joined_at, 'yyyy-MM-dd')}
                 </Text>
               </View>
             ))}

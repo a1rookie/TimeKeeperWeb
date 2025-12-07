@@ -33,8 +33,8 @@ export const TemplateMarketScreen: React.FC = () => {
   const renderTemplate = ({ item }: { item: ReminderTemplate }) => (
     <Card style={styles.templateCard} onPress={() => handleTemplatePress(item)}>
       <View style={styles.templateHeader}>
-        <Text style={styles.templateTitle(theme)}>{item.title}</Text>
-        {item.isSystem && (
+        <Text style={styles.templateTitle(theme)}>{item.title || item.name}</Text>
+        {(item.is_system || item.isSystem) && (
           <View style={styles.systemBadge(theme)}>
             <Text style={styles.systemBadgeText()}>官方</Text>
           </View>
@@ -49,10 +49,10 @@ export const TemplateMarketScreen: React.FC = () => {
 
       <View style={styles.templateFooter}>
         <View style={styles.stat}>
-          <Text style={styles.statText(theme)}>👍 {item.likeCount || 0}</Text>
+          <Text style={styles.statText(theme)}>👍 {item.like_count ?? item.likeCount ?? 0}</Text>
         </View>
         <View style={styles.stat}>
-          <Text style={styles.statText(theme)}>📊 {item.usageCount || 0} 次使用</Text>
+          <Text style={styles.statText(theme)}>📊 {item.usage_count ?? item.usageCount ?? 0} 次使用</Text>
         </View>
       </View>
     </Card>
@@ -103,7 +103,7 @@ export const TemplateMarketScreen: React.FC = () => {
       <FlatList
         data={templates}
         renderItem={renderTemplate}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
       />

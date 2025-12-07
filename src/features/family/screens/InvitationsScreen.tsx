@@ -17,7 +17,7 @@ export const InvitationsScreen: React.FC = () => {
   const respondMutation = useRespondInvitation()
 
   // 处理接受邀请
-  const handleAccept = async (invitationId: string) => {
+  const handleAccept = async (invitationId: number) => {
     try {
       await respondMutation.mutateAsync({
         invitationId,
@@ -29,7 +29,7 @@ export const InvitationsScreen: React.FC = () => {
   }
 
   // 处理拒绝邀请
-  const handleReject = async (invitationId: string) => {
+  const handleReject = async (invitationId: number) => {
     try {
       await respondMutation.mutateAsync({
         invitationId,
@@ -49,7 +49,7 @@ export const InvitationsScreen: React.FC = () => {
       </View>
 
       <Text style={styles.inviterLabel(theme)}>邀请人</Text>
-      <Text style={styles.inviterName(theme)}>{item.inviterName || '未知'}</Text>
+      <Text style={styles.inviterName(theme)}>{item.sender_id ? item.sender_id.toString() : '未知'}</Text>
 
       <View style={styles.actions}>
         <Button
@@ -95,7 +95,7 @@ export const InvitationsScreen: React.FC = () => {
       <FlatList
         data={invitations}
         renderItem={renderInvitation}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}
         ListEmptyComponent={renderEmpty}
       />

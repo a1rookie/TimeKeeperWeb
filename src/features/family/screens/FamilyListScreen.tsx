@@ -73,12 +73,12 @@ export const FamilyListScreen: React.FC = () => {
       {/* 家庭组列表 */}
       <FlatList
         data={familyGroups}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <Card style={styles.groupCard} onPress={() => handleGroupPress(item)}>
             <View style={styles.groupHeader}>
               <Text style={styles.groupName(theme)}>{item.name}</Text>
-              <Text style={styles.memberCount(theme)}>{item.memberCount || 0} 成员</Text>
+              <Text style={styles.memberCount(theme)}>{item.member_count || 0} 成员</Text>
             </View>
             {item.description && (
               <Text style={styles.groupDescription(theme)}>{item.description}</Text>

@@ -26,7 +26,7 @@ export const familyService = {
   /**
    * 获取家庭组详情
    */
-  getFamilyGroup: async (id: string): Promise<ApiResponse<FamilyGroup>> => {
+  getFamilyGroup: async (id: number): Promise<ApiResponse<FamilyGroup>> => {
     return apiClient.get<FamilyGroup>(`/api/v1/family/groups/${id}`)
   },
 
@@ -41,7 +41,7 @@ export const familyService = {
    * 更新家庭组
    */
   updateFamilyGroup: async (
-    id: string,
+    id: number,
     data: UpdateFamilyGroupRequest
   ): Promise<ApiResponse<FamilyGroup>> => {
     return apiClient.put<FamilyGroup>(`/api/v1/family/groups/${id}`, data)
@@ -50,14 +50,14 @@ export const familyService = {
   /**
    * 删除家庭组
    */
-  deleteFamilyGroup: async (id: string): Promise<ApiResponse<void>> => {
+  deleteFamilyGroup: async (id: number): Promise<ApiResponse<void>> => {
     return apiClient.delete<void>(`/api/v1/family/groups/${id}`)
   },
 
   /**
    * 获取家庭组成员列表
    */
-  getFamilyMembers: async (familyGroupId: string): Promise<ApiResponse<FamilyMember[]>> => {
+  getFamilyMembers: async (familyGroupId: number): Promise<ApiResponse<FamilyMember[]>> => {
     return apiClient.get<FamilyMember[]>(`/api/v1/family/groups/${familyGroupId}/members`)
   },
 
@@ -92,7 +92,7 @@ export const familyService = {
   /**
    * 退出家庭组
    */
-  leaveFamilyGroup: async (familyGroupId: string): Promise<ApiResponse<void>> => {
+  leaveFamilyGroup: async (familyGroupId: number): Promise<ApiResponse<void>> => {
     return apiClient.post<void>(`/api/v1/family/groups/${familyGroupId}/leave`)
   },
 }

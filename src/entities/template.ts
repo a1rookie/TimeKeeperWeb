@@ -17,6 +17,24 @@ export interface ReminderTemplate {
   readonly created_at: string
 }
 
+// camelCase 兼容字段，方便前端直接使用
+export interface ReminderTemplate {
+  title?: string
+  recurrenceType?: string
+  recurrenceConfig?: RecurrenceConfig
+  remindAdvanceDays?: number
+  isActive?: boolean
+  usageCount?: number
+  likeCount?: number
+  isSystem?: boolean
+  createdAt?: string
+}
+// 后端 snake_case 兼容字段
+export interface ReminderTemplate {
+  like_count?: number
+  is_system?: boolean
+}
+
 export interface UserCustomTemplate {
   readonly id: number
   user_id: number
@@ -28,6 +46,22 @@ export interface UserCustomTemplate {
   created_from_template_id?: number
   readonly created_at: string
   readonly updated_at: string
+}
+
+export interface UserCustomTemplate {
+  title?: string
+  recurrenceType?: string
+  recurrenceConfig?: RecurrenceConfig
+  remindAdvanceDays?: number
+  createdAt?: string
+  updatedAt?: string
+}
+// 后端 snake_case 兼容字段
+export interface UserCustomTemplate {
+  like_count?: number
+  usage_count?: number
+  likeCount?: number
+  usageCount?: number
 }
 
 export interface TemplateShare {
@@ -94,6 +128,6 @@ export interface TemplateQueryParams {
  * 使用模板请求
  */
 export interface UseTemplateRequest {
-  templateId: string
+  templateId: number
   targetDate?: Date
 }

@@ -37,6 +37,25 @@ export interface Reminder {
   readonly updated_at: string
 }
 
+// 为了兼容前端使用的 camelCase 字段，提供可选的别名字段
+export interface Reminder {
+  // camelCase 兼容
+  nextRemindTime?: string
+  firstRemindTime?: string
+  lastRemindTime?: string
+  recurrenceType?: RecurrenceType
+  recurrenceConfig?: RecurrenceConfig
+  advanceMinutes?: number
+  isActive?: boolean
+  isCompleted?: boolean
+  completedAt?: string
+  createdAt?: string
+  updatedAt?: string
+
+  // 计算类字段（可选），某些 UI 使用 completionRate
+  completionRate?: number
+}
+
 export interface RecurrenceConfig {
   // 日周期配置
   time?: string // HH:mm
@@ -84,6 +103,13 @@ export interface ReminderCompletion {
   notes?: string
   amount?: number
   isDelayed: boolean
+}
+
+// 兼容后端 snake_case 字段
+export interface ReminderCompletion {
+  reminder_id?: string
+  user_id?: string
+  completed_at?: string
 }
 
 export interface ReminderStatistics {

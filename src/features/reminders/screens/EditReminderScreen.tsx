@@ -53,7 +53,7 @@ export const EditReminderScreen: React.FC = () => {
       setTitle(reminder.title)
       setDescription(reminder.description || '')
       setCategory(reminder.category)
-      setRemindTime(reminder.nextRemindTime.toString())
+      setRemindTime(reminder.next_remind_time?.toString() || '')
       setAmount(reminder.amount?.toString() || '')
     }
   }, [reminder])
