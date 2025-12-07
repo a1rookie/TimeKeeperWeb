@@ -67,6 +67,36 @@ class UserService {
     const response = await apiClient.post<{ message: string }>('/api/v1/users/logout')
     return response.data
   }
+
+  /**
+   * 退出所有设备登录
+   */
+  async logoutAll() {
+    const response = await apiClient.post<{ message: string }>('/api/v1/users/logout/all')
+    return response.data
+  }
+
+  /**
+   * 获取当前用户的所有会话
+   */
+  async getSessions() {
+    const response = await apiClient.get<Array<{
+      id: string
+      device_info: string
+      ip_address: string
+      last_activity: string
+      is_current: boolean
+    }>>('/api/v1/users/sessions')
+    return response.data
+  }
+
+  /**
+   * 删除指定会话
+   */
+  async deleteSession(sessionId: string) {
+    const response = await apiClient.delete<{ message: string }>(`/api/v1/users/sessions/${sessionId}`)
+    return response.data
+  }
 }
 
 export const userService = new UserService()
