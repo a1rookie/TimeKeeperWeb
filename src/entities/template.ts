@@ -5,40 +5,53 @@
 import type { ReminderCategory, RecurrenceType, RecurrenceConfig } from './reminder'
 
 export interface ReminderTemplate {
-  readonly id: string
-  title: string
+  readonly id: number
+  name: string
   description?: string
-  category: ReminderCategory
-  recurrenceType: RecurrenceType
-  recurrenceConfig: RecurrenceConfig
-  remindAdvanceDays: number
-  isSystem: boolean
-  usageCount: number
-  likeCount: number
-  rating?: number
-  readonly createdAt: Date
+  category: string
+  default_recurrence_type?: string
+  default_recurrence_config?: RecurrenceConfig
+  default_remind_advance_days?: number
+  is_active: boolean
+  usage_count: number
+  readonly created_at: string
 }
 
-export interface UserCustomTemplate extends ReminderTemplate {
-  userId: string
+export interface UserCustomTemplate {
+  readonly id: number
+  user_id: number
+  name: string
+  description?: string
+  recurrence_type?: string
+  recurrence_config?: RecurrenceConfig
+  remind_advance_days?: number
+  created_from_template_id?: number
+  readonly created_at: string
+  readonly updated_at: string
 }
 
 export interface TemplateShare {
-  readonly id: string
-  templateId: string
-  shareType: 'public' | 'family' | 'link'
-  shareCode: string
-  title: string
-  description?: string
-  readonly createdAt: Date
-  readonly expiresAt?: Date
+  readonly id: number
+  template_id: number
+  user_id: number
+  share_type: 'public' | 'family' | 'private_link'
+  share_code: string
+  share_title: string
+  share_description?: string
+  family_group_id?: number
+  usage_count: number
+  like_count: number
+  is_active: boolean
+  readonly created_at: string
 }
 
 export interface TemplateUsageRecord {
-  readonly id: string
-  templateId: string
-  userId: string
-  readonly usedAt: Date
+  readonly id: number
+  template_share_id: number
+  user_id: number
+  feedback_rating?: number
+  feedback_comment?: string
+  readonly used_at: string
 }
 
 /**

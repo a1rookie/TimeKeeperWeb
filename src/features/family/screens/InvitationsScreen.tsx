@@ -44,8 +44,8 @@ export const InvitationsScreen: React.FC = () => {
   const renderInvitation = ({ item }: { item: FamilyInvitation }) => (
     <Card style={styles.invitationCard}>
       <View style={styles.invitationHeader}>
-        <Text style={styles.familyName(theme)}>{item.familyGroupName}</Text>
-        <Text style={styles.inviteTime(theme)}>{formatDateTime(item.createdAt)}</Text>
+        <Text style={styles.familyName(theme)}>{item.family_group_name}</Text>
+        <Text style={styles.inviteTime(theme)}>{formatDateTime(item.created_at)}</Text>
       </View>
 
       <Text style={styles.inviterLabel(theme)}>邀请人</Text>

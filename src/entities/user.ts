@@ -4,13 +4,13 @@
  */
 
 export interface User {
-  readonly id: string
+  readonly id: number
   phone: string
   nickname?: string
-  avatar?: string
+  avatar_url?: string
   settings?: UserSettings
-  readonly createdAt: Date
-  readonly updatedAt: Date
+  readonly created_at: string
+  readonly updated_at: string
 }
 
 export interface UserSettings {
@@ -28,20 +28,33 @@ export type RemindChannel = 'app' | 'sms' | 'wechat' | 'voice'
 
 export interface LoginRequest {
   phone: string
-  password: string
+  /** 密码 - 密码登录时必填 */
+  password?: string
+  /** 短信验证码 - 验证码登录时必填 */
+  sms_code?: string
 }
 
 export interface RegisterRequest {
   phone: string
   password: string
-  smsCode: string
+  /** 短信验证码（后端字段名为 sms_code）*/
+  sms_code: string
   nickname?: string
 }
 
 export interface SendSmsCodeRequest {
   phone: string
+  /** 用途: register(注册) | login(登录) | reset(重置密码) */
+  purpose?: 'register' | 'login' | 'reset'
 }
 
+/** 后端登录返回的 Token 结构 */
+export interface Token {
+  access_token: string
+  token_type: string
+}
+
+/** 前端使用的认证响应（包含 token 和 user）*/
 export interface AuthResponse {
   token: string
   user: User

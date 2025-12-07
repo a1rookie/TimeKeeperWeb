@@ -10,6 +10,7 @@ import type {
   RegisterRequest,
   SendSmsCodeRequest,
   AuthResponse,
+  Token,
 } from '@entities/user'
 
 class UserService {
@@ -23,10 +24,16 @@ class UserService {
 
   /**
    * 用户登录
+   * 后端返回 Token，需额外调用 /users/me 获取用户信息
    */
   async login(data: LoginRequest) {
-    const response = await apiClient.post<AuthResponse>('/api/v1/users/login', data)
-    return response.data
+    const response = await apiClient.post<Token>('/api/v1/users/login', data)
+    // 登录后立即获取用户信息
+    const userResponse = await apiClient.get<User>('/api/v1/users/me')
+    return {
+      token: response.data.access_token,
+      user: userResponse.data,
+    } as AuthResponse
   }
 
   /**
