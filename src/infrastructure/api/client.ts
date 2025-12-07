@@ -4,7 +4,7 @@
  */
 
 import config from '../config'
-import { Storage } from '../storage/index'
+import { Storage, STORAGE_KEYS } from '../storage/index'
 import type { ApiResponse } from '@shared/types/api'
 import { ApiErrorException } from '@shared/types/api'
 
@@ -24,10 +24,19 @@ interface RequestConfig {
 class ApiClient {
   private baseURL: string
   private timeout: number
+  private currentToken: string | null = null
 
   constructor(baseURL: string, timeout: number = 10000) {
     this.baseURL = baseURL
     this.timeout = timeout
+  }
+
+  /**
+   * 设置认证 token（用于登录流程中先获取 token，再调用需要认证的接口）
+   */
+  async setToken(token: string) {
+    this.currentToken = token
+    await storage.setItem(STORAGE_KEYS.AUTH_TOKEN, token)
   }
 
   /**
@@ -134,7 +143,12 @@ class ApiClient {
 
     // 添加认证 token
     if (!skipAuth) {
-      const token = await storage.getItem('auth_token')
+      // 优先使用当前设置的 token（登录流程中）
+      let token = this.currentToken
+      // 如果没有，从 storage 获取
+      if (!token) {
+        token = await storage.getItem(STORAGE_KEYS.AUTH_TOKEN)
+      }
       if (token) {
         headers['Authorization'] = `Bearer ${token}`
       }
