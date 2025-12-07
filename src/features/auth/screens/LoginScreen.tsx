@@ -9,7 +9,7 @@ import { Button, Input } from '@shared/components'
 import { useLogin, useSendSmsCode } from '../hooks/use-auth'
 import { useCountdown } from '@shared/utils/hooks'
 import { validateField, phoneSchema, smsCodeSchema } from '@shared/utils/validation'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 
 export const LoginScreen: React.FC = () => {
   const theme = useTheme()
@@ -19,11 +19,21 @@ export const LoginScreen: React.FC = () => {
   const [phoneError, setPhoneError] = useState('')
   const [codeError, setCodeError] = useState('')
 
-  const [countdown, startCountdown] = useCountdown(60)
-  const canSendSms = countdown === 0 || countdown === 60
+  const [countdown, startCountdown, resetCountdown] = useCountdown(60)
+  const canSendSms = countdown === 0
 
   const loginMutation = useLogin()
   const sendSmsMutation = useSendSmsCode()
+
+  // 页面聚焦时重置倒计时和表单
+  useFocusEffect(
+    React.useCallback(() => {
+      resetCountdown()
+      setSmsCode('')
+      setPhoneError('')
+      setCodeError('')
+    }, [resetCountdown])
+  )
 
   // 发送短信验证码
   const handleSendSmsCode = async () => {

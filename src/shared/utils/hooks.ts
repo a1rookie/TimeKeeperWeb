@@ -91,8 +91,13 @@ export function usePrevious<T>(value: T): T | undefined {
  * 倒计时 Hook
  * @param initialSeconds 初始秒数
  */
+/**
+ * 倒计时 Hook
+ * @param initialSeconds 倒计时秒数
+ * @returns [countdown秒数, 开始倒计时函数, 重置倒计时函数]
+ */
 export function useCountdown(initialSeconds: number): [number, () => void, () => void] {
-  const [seconds, setSeconds] = useState(initialSeconds)
+  const [seconds, setSeconds] = useState(0) // 初始状态应该是 0，表示可以发送
   const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
@@ -112,13 +117,14 @@ export function useCountdown(initialSeconds: number): [number, () => void, () =>
   }, [isActive, seconds])
 
   const start = useCallback(() => {
+    setSeconds(initialSeconds)
     setIsActive(true)
-  }, [])
+  }, [initialSeconds])
 
   const reset = useCallback(() => {
-    setSeconds(initialSeconds)
+    setSeconds(0)
     setIsActive(false)
-  }, [initialSeconds])
+  }, [])
 
   return [seconds, start, reset]
 }
