@@ -56,8 +56,8 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: (data: LoginRequest) => userService.login(data),
     onSuccess: (authResponse: AuthResponse) => {
+      // 成功时静默设置认证信息，不弹出提示
       setAuth(authResponse.token, authResponse.user)
-      Alert.alert('成功', '登录成功！')
     },
     onError: (error: any) => {
       const message = error?.message || error?.response?.data?.message || '登录失败，请检查手机号和验证码'
