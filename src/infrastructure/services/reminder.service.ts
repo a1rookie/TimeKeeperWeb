@@ -35,7 +35,7 @@ class ReminderService {
   /**
    * 获取提醒详情
    */
-  async getReminderById(id: string) {
+  async getReminderById(id: number) {
     const response = await apiClient.get<Reminder>(`/api/v1/reminders/${id}`)
     return response.data
   }
@@ -51,7 +51,7 @@ class ReminderService {
   /**
    * 更新提醒
    */
-  async updateReminder(id: string, data: UpdateReminderRequest) {
+  async updateReminder(id: number, data: UpdateReminderRequest) {
     const response = await apiClient.put<Reminder>(`/api/v1/reminders/${id}`, data)
     return response.data
   }
@@ -59,7 +59,7 @@ class ReminderService {
   /**
    * 删除提醒
    */
-  async deleteReminder(id: string) {
+  async deleteReminder(id: number) {
     const response = await apiClient.delete<{ message: string }>(`/api/v1/reminders/${id}`)
     return response.data
   }
@@ -67,7 +67,7 @@ class ReminderService {
   /**
    * 标记提醒完成
    */
-  async completeReminder(id: string, notes?: string, amount?: number) {
+  async completeReminder(id: number, notes?: string, amount?: number) {
     const response = await apiClient.post<ReminderCompletion>(`/api/v1/reminders/${id}/complete`, {
       notes,
       amount,
@@ -78,7 +78,7 @@ class ReminderService {
   /**
    * 取消完成标记
    */
-  async uncompleteReminder(id: string) {
+  async uncompleteReminder(id: number) {
     const response = await apiClient.post<{ message: string }>(`/api/v1/reminders/${id}/uncomplete`)
     return response.data
   }
@@ -86,7 +86,7 @@ class ReminderService {
   /**
    * 获取提醒完成记录
    */
-  async getReminderCompletions(reminderId: string) {
+  async getReminderCompletions(reminderId: number) {
     const response = await apiClient.get<ReminderCompletion[]>(
       `/api/v1/completions/reminder/${reminderId}`
     )
@@ -113,10 +113,15 @@ class ReminderService {
    * 语音创建提醒
    */
   async createVoiceReminder(audioData: FormData) {
-    const response = await apiClient.post<Reminder>('/api/v1/reminders/voice', audioData, {
+    const response = await apiClient.request<Reminder>({
+      url: '/api/v1/reminders/voice',
+      method: 'POST',
+      data: audioData,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+      // multipart upload may need longer timeout
+      timeout: 60000,
     })
     return response.data
   }
@@ -124,7 +129,7 @@ class ReminderService {
   /**
    * 获取提醒的通知配置
    */
-  async getNotificationConfig(reminderId: string) {
+  async getNotificationConfig(reminderId: number) {
     const response = await apiClient.get<{
       advance_notify_minutes: number[]
       smart_scheduling_enabled: boolean
@@ -137,7 +142,7 @@ class ReminderService {
    * 更新提醒的通知配置
    */
   async updateNotificationConfig(
-    reminderId: string,
+    reminderId: number,
     config: {
       advance_notify_minutes?: number[]
       smart_scheduling_enabled?: boolean

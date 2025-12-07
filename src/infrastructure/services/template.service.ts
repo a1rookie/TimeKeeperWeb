@@ -33,7 +33,7 @@ export class TemplateService {
   /**
    * 获取模板详情
    */
-  async getTemplate(id: string): Promise<ReminderTemplate> {
+  async getTemplate(id: number): Promise<ReminderTemplate> {
     const response = await apiClient.get<ReminderTemplate>(`/api/v1/templates/${id}`)
     return response.data
   }
@@ -49,7 +49,7 @@ export class TemplateService {
   /**
    * 更新自定义模板
    */
-  async updateTemplate(id: string, data: UpdateTemplateRequest): Promise<UserCustomTemplate> {
+  async updateTemplate(id: number, data: UpdateTemplateRequest): Promise<UserCustomTemplate> {
     const response = await apiClient.put<UserCustomTemplate>(`/api/v1/templates/${id}`, data)
     return response.data
   }
@@ -57,7 +57,7 @@ export class TemplateService {
   /**
    * 删除自定义模板
    */
-  async deleteTemplate(id: string): Promise<void> {
+  async deleteTemplate(id: number): Promise<void> {
     await apiClient.delete(`/api/v1/templates/${id}`)
   }
 
@@ -71,28 +71,28 @@ export class TemplateService {
   /**
    * 点赞模板
    */
-  async likeTemplate(id: string): Promise<void> {
+  async likeTemplate(id: number): Promise<void> {
     await apiClient.post(`/api/v1/templates/${id}/like`)
   }
 
   /**
    * 取消点赞
    */
-  async unlikeTemplate(id: string): Promise<void> {
+  async unlikeTemplate(id: number): Promise<void> {
     await apiClient.delete(`/api/v1/templates/${id}/like`)
   }
 
   /**
    * 收藏模板
    */
-  async favoriteTemplate(id: string): Promise<void> {
+  async favoriteTemplate(id: number): Promise<void> {
     await apiClient.post(`/api/v1/templates/${id}/favorite`)
   }
 
   /**
    * 取消收藏
    */
-  async unfavoriteTemplate(id: string): Promise<void> {
+  async unfavoriteTemplate(id: number): Promise<void> {
     await apiClient.delete(`/api/v1/templates/${id}/favorite`)
   }
 
@@ -115,7 +115,7 @@ export class TemplateService {
   /**
    * 获取系统模板详情
    */
-  async getSystemTemplate(id: string): Promise<ReminderTemplate> {
+  async getSystemTemplate(id: number): Promise<ReminderTemplate> {
     const response = await apiClient.get<ReminderTemplate>(`/api/v1/templates/system/${id}`)
     return response.data
   }

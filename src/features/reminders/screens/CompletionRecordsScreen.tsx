@@ -41,11 +41,11 @@ export const CompletionRecordsScreen: React.FC = () => {
     <View style={styles.container(theme)}>
       <FlatList
         data={completions}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <Card style={styles.recordCard}>
             <View style={styles.recordHeader}>
-              <Text style={styles.recordDate(theme)}>{formatDateTime(item.completedAt)}</Text>
+              <Text style={styles.recordDate(theme)}>{formatDateTime(item.completed_at || item.completedAt)}</Text>
               <Text style={styles.recordStatus(theme)}>已完成</Text>
             </View>
 

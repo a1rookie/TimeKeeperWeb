@@ -66,8 +66,8 @@ export const queryKeys = {
   reminders: {
     all: ['reminders'] as const,
     list: (filters?: Record<string, unknown>) => ['reminders', 'list', filters] as const,
-    detail: (id: string) => ['reminders', 'detail', id] as const,
-    completions: (id: string) => ['reminders', 'completions', id] as const,
+    detail: (id: string | number) => ['reminders', 'detail', id] as const,
+    completions: (id: string | number) => ['reminders', 'completions', id] as const,
     statistics: ['reminders', 'statistics'] as const,
   },
 
@@ -81,7 +81,7 @@ export const queryKeys = {
   // 家庭组相关
   family: {
     groups: ['family', 'groups'] as const,
-    detail: (id: string) => ['family', 'detail', id] as const,
-    members: (groupId: string) => ['family', 'members', groupId] as const,
+    detail: (id: string | number) => ['family', 'detail', id] as const,
+    members: (groupId: string | number) => ['family', 'members', groupId] as const,
   },
 } as const

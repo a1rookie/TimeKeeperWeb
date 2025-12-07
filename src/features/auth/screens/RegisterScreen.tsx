@@ -3,7 +3,7 @@
  */
 
 import React, { useState } from 'react'
-import { View, Text, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native'
+import { View, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import { useTheme } from '@shared/theme'
 import { Button, Input } from '@shared/components'
 import { useRegister, useSendSmsCode } from '../hooks/use-auth'

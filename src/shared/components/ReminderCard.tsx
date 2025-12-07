@@ -28,10 +28,10 @@ export const ReminderCard: React.FC<ReminderCardProps> = ({
 }) => {
   const theme = useTheme()
 
-  const daysUntil = getDaysUntil(reminder.nextRemindTime)
+  const daysUntil = getDaysUntil(reminder.next_remind_time)
   const isOverdue = daysUntil < 0
   const isToday = daysUntil === 0
-  const isCompleted = reminder.completionRate === 100
+  const isCompleted = !!reminder.is_completed
 
   // 状态指示器颜色
   const getStatusColor = () => {
@@ -78,7 +78,7 @@ export const ReminderCard: React.FC<ReminderCardProps> = ({
         {/* 底部信息 */}
         <View style={styles.footer}>
           <Text style={styles.category(theme)}>{getCategoryName(reminder.category)}</Text>
-          <Text style={styles.time(theme)}>{formatReminderTime(reminder.nextRemindTime)}</Text>
+          <Text style={styles.time(theme)}>{formatReminderTime(reminder.next_remind_time)}</Text>
         </View>
       </View>
 

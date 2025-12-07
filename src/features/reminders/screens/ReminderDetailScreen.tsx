@@ -71,9 +71,9 @@ export const ReminderDetailScreen: React.FC = () => {
     return <Error title="加载失败" message="请稍后重试" onRetry={refetch} fullScreen />
   }
 
-  const daysUntil = getDaysUntil(reminder.nextRemindTime)
+  const daysUntil = getDaysUntil(reminder.next_remind_time)
   const isOverdue = daysUntil < 0
-  const isCompleted = reminder.completionRate === 100
+  const isCompleted = !!reminder.is_completed
 
   return (
     <ScrollView style={styles.container(theme)} contentContainerStyle={styles.content}>
@@ -106,20 +106,20 @@ export const ReminderDetailScreen: React.FC = () => {
         <View style={styles.statusRow}>
           <Text style={styles.statusLabel(theme)}>提醒时间</Text>
           <Text style={styles.statusValue(theme)}>
-            {formatReminderTime(reminder.nextRemindTime)}
+            {formatReminderTime(reminder.next_remind_time)}
           </Text>
         </View>
-        {reminder.recurrenceType && reminder.recurrenceType !== 'none' && (
+        {reminder.recurrence_type && reminder.recurrence_type !== 'none' && (
           <View style={styles.statusRow}>
             <Text style={styles.statusLabel(theme)}>重复周期</Text>
             <Text style={styles.statusValue(theme)}>
-              {reminder.recurrenceType === 'daily'
+              {reminder.recurrence_type === 'daily'
                 ? '每天'
-                : reminder.recurrenceType === 'weekly'
+                : reminder.recurrence_type === 'weekly'
                   ? '每周'
-                  : reminder.recurrenceType === 'monthly'
+                  : reminder.recurrence_type === 'monthly'
                     ? '每月'
-                    : reminder.recurrenceType === 'yearly'
+                    : reminder.recurrence_type === 'yearly'
                       ? '每年'
                       : '智能周期'}
             </Text>

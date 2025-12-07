@@ -28,10 +28,10 @@ export type MainTabParamList = {
  */
 export type RemindersStackParamList = {
   ReminderList: undefined
-  ReminderDetail: { id: string }
+  ReminderDetail: { id: number }
   CreateReminder: { category?: Reminder['category'] }
-  EditReminder: { id: string }
-  CompletionRecords: { id: string }
+  EditReminder: { id: number }
+  CompletionRecords: { id: number }
 }
 
 /**
@@ -39,10 +39,10 @@ export type RemindersStackParamList = {
  */
 export type FamilyStackParamList = {
   FamilyList: undefined
-  FamilyDetail: { familyGroupId: string }
+  FamilyDetail: { familyGroupId: number }
   CreateFamily: undefined
-  EditFamily: { familyGroupId: string }
-  InviteMember: { familyGroupId: string }
+  EditFamily: { familyGroupId: number }
+  InviteMember: { familyGroupId: number }
   Invitations: undefined
 }
 
@@ -61,7 +61,7 @@ export type ProfileStackParamList = {
  */
 export type TemplatesStackParamList = {
   TemplateMarket: undefined
-  TemplateDetail: { id: string }
+  TemplateDetail: { id: number }
   MyTemplates: undefined
   CreateTemplate: undefined
 }
@@ -76,11 +76,11 @@ export type RootStackParamList = {
   Main: undefined
   // 模板页面
   TemplateMarket: undefined
-  TemplateDetail: { id: string }
+  TemplateDetail: { id: number }
   MyTemplates: undefined
   CreateTemplate: undefined
   // 全局模态
-  TemplateModal: { templateId: string }
+  TemplateModal: { templateId: number }
   VoiceInputModal: undefined
 }
 

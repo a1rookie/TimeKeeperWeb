@@ -55,7 +55,7 @@ export const MyTemplatesScreen: React.FC = () => {
     <Card style={styles.templateCard}>
       <TouchableOpacity onPress={() => handleTemplatePress(item)}>
         <View style={styles.templateHeader}>
-          <Text style={styles.templateTitle(theme)}>{item.title}</Text>
+          <Text style={styles.templateTitle(theme)}>{item.title || item.name}</Text>
         </View>
 
         {item.description && (
@@ -66,10 +66,10 @@ export const MyTemplatesScreen: React.FC = () => {
 
         <View style={styles.templateFooter}>
           <View style={styles.stat}>
-            <Text style={styles.statText(theme)}>👍 {item.likeCount || 0}</Text>
+            <Text style={styles.statText(theme)}>👍 {item.like_count ?? item.likeCount ?? 0}</Text>
           </View>
           <View style={styles.stat}>
-            <Text style={styles.statText(theme)}>📊 {item.usageCount || 0} 次使用</Text>
+            <Text style={styles.statText(theme)}>📊 {item.usage_count ?? item.usageCount ?? 0} 次使用</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -118,7 +118,7 @@ export const MyTemplatesScreen: React.FC = () => {
       <FlatList
         data={templates}
         renderItem={renderTemplate}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
       />
